@@ -1,0 +1,26 @@
+{
+  "name": "commander",
+  "version": "0.0.0",
+  "description": "Command module for Alloybot",
+  "main": "commander.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlloybotDevTeam/commander.git"
+  },
+  "keywords": [
+    "command",
+    "commander",
+    "alloybot",
+    "module",
+    "bot"
+  ],
+  "author": "Taylor Stapleton",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AlloybotDevTeam/commander/issues"
+  },
+  "homepage": "https://github.com/AlloybotDevTeam/commander#readme"
+}
