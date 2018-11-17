@@ -1,12 +1,13 @@
-import { IModule, Alloybot } from '../../../Alloybot';
+import { IModule, Alloybot, Logger } from '../../../Alloybot';
 import { EventEmitter } from 'events';
 import { NotLoadedError } from './lib/Error';
 
 export class Commander extends EventEmitter implements IModule {
-  public name: String = 'Commander';
-  public dependencies: Array<String> = [];
+  public readonly name: String = 'Commander';
+  public readonly dependencies: String[] = [];
 
   private commands: Map<String, ICommand> = new Map();
+  private logger: Logger = new Logger(this.name);
 
   constructor() {
     super();

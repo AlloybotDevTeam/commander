@@ -5,8 +5,6 @@ export class NotLoadedError implements Error {
   message: string;
   stack?: string;
   constructor(Command: ICommand) {
-    this.message = `Failed to load ${Command.name}. Parent ${
-      Command.parent.name
-    } is not loaded. Please wait.`;
+    this.message = `Failed to load ${Command.name}.`;
   }
 }
