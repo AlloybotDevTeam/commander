@@ -23,7 +23,7 @@ export class Commander extends EventEmitter implements IModule {
   }
 
   public registerCommand(command: ICommand): void {
-    if (command.subcommand != null) this.registerCommand(command);
+    if (command.subcommand != null) this.registerCommand(command.subcommand);
 
     this.commands.set(command.name, command);
     this.emit('command.registered', command.name);
@@ -55,6 +55,5 @@ export interface ICommand {
   readonly type: String;
   readonly disabled: Boolean;
   readonly reason: String | null;
-  readonly subcommand: ICommand | null;
-  readonly parent?: ICommand | null;
+  readonly subcommand?: ICommand | null;
 }

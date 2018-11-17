@@ -1,0 +1,28 @@
+{
+  "general": {
+    "noCommand": "Command %s doesn't exist. For a list of available commands, do %s.",
+    "noInfo": "Unable to get info about %s. Check the spelling, otherwise it's probably not a command.",
+    "reason": "Because it is.",
+    "errorBlock": "```\r\n%j\r\n```"
+  },
+  "symbol": {
+    "enabled": ":white_check_mark:",
+    "disabled": ":negative_squared_cross_mark:"
+  },
+  "type": ["Built-in"],
+  "description": {
+    "cmdlist": "Lists all registered commands.",
+    "help": "Gets more info on any listed command.",
+    "invite": "Generates a link to join the bot to other discord servers."
+  },
+  "label": {
+    "subcommand": "Subcommand(s)",
+    "enabled": "Enabled?",
+    "reason": "Reason",
+    "usage": "Usage",
+    "type": "Type",
+    "example": "Example",
+    "help": "Help - %s",
+    "empty": "Empty"
+  }
+}
