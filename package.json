@@ -1,5 +1,5 @@
 {
-  "name": "commander",
+  "name": "abm-commander",
   "version": "0.0.0",
   "description": "Command module for Alloybot",
   "main": "commander.js",
