@@ -3,19 +3,19 @@ import { Alloybot } from '../../../../Alloybot';
 import { format } from 'util';
 
 const lang = require('./lang.json');
-let Commander = Alloybot.getModule('Commander');
+let Commander = Alloybot.getPlugin('Commander');
 
 class Help implements ICommand {
-  readonly name: String = 'help';
-  readonly description: String = lang.description.help;
-  readonly usage: String = 'help <command>';
-  readonly example: String = 'help listcmds';
-  readonly type: String = lang.type[0];
-  readonly disabled: Boolean = false;
+  readonly name: string = 'help';
+  readonly description: string = lang.description.help;
+  readonly usage: string = 'help <command>';
+  readonly example: string = 'help listcmds';
+  readonly type: string = lang.type[0];
+  readonly disabled: boolean = false;
   readonly reason: null;
   readonly subcommand?: null;
 
-  public call(command: String): Object {
+  public call(command: string): Object {
     const CommandClass = Commander.getCommand(command);
 
     let Response = {
