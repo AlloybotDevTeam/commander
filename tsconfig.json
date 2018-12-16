@@ -1,6 +1,13 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "lib": ["es2018"]
-  }
+    "lib": ["es2018"],
+    "target": "es2018",
+    "moduleResolution": "node",
+    "module": "none",
+    "composite": true,
+    "declaration": true,
+    "declarationDir": "./typings"
+  },
+  "extends": "../tsconfig.json",
+  "files": ["Commander.ts", "util/Error.ts", "lib/Commands.ts", "lib/Help.ts"]
 }

@@ -1,14 +1,14 @@
-import { IPlugin, Alloybot, Logger, DependantList } from '../../../Alloybot';
+import { default as Alloybot, Type, Util } from 'Alloybot';
 import { EventEmitter } from 'events';
-import { NotLoadedError } from './lib/Error';
+import { NotLoadedError } from './util/Error';
 
-export class Commander extends EventEmitter implements IPlugin {
+export class Commander extends EventEmitter implements Type.IPlugin {
   public readonly name: string = 'Commander';
   public readonly dependencies: string[] = [];
-  public readonly dependants: DependantList = Alloybot.getDependants(this.name);
+  public readonly dependants: Type.IPlugin[] = Alloybot.getDependants(this.name);
 
   private commands: Map<string, ICommand> = new Map();
-  private logger: Logger = new Logger(this.name);
+  private logger: Util.Logger = new Util.Logger(this.name);
 
   constructor() {
     super();

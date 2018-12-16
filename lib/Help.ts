@@ -1,5 +1,5 @@
 import { ICommand } from '../Commander';
-import { Alloybot } from '../../../../Alloybot';
+import { default as Alloybot } from '../../../Alloybot';
 import { format } from 'util';
 
 const lang = require('./lang.json');
