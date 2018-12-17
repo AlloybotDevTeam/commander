@@ -1,17 +1,21 @@
-import { default as Alloybot, Type, Util } from 'Alloybot';
+import { default as Alloybot, Type, Util, ConfigBuilder } from '../../Alloybot';
 import { EventEmitter } from 'events';
 import { NotLoadedError } from './util/Error';
 
-export class Commander extends EventEmitter implements Type.IPlugin {
+export default class Commander extends EventEmitter implements Type.IPlugin {
   public readonly name: string = 'Commander';
   public readonly dependencies: string[] = [];
   public readonly dependants: Type.IPlugin[] = Alloybot.getDependants(this.name);
+  public config;
 
   private commands: Map<string, ICommand> = new Map();
   private logger: Util.Logger = new Util.Logger(this.name);
 
   constructor() {
     super();
+    let Config: ConfigBuilder = new ConfigBuilder('Commander', require('./package.json').version);
+    Config.close();
+    this.config = Config.getConfig();
   }
 
   public isCommandRegistered(command: ICommand): boolean;
