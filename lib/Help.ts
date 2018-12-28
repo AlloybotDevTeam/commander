@@ -2,47 +2,47 @@ import { ICommand } from '../Commander';
 import { default as Alloybot } from '../../../Alloybot';
 import { format } from 'util';
 
-const lang = require('./lang.json');
+const lang = require('./Lang.json');
 let Commander = Alloybot.getPlugin('Commander');
 
 class Help implements ICommand {
-  readonly name: string = 'help';
-  readonly description: string = lang.description.help;
-  readonly usage: string = 'help <command>';
-  readonly example: string = 'help listcmds';
-  readonly type: string = lang.type[0];
-  readonly disabled: boolean = false;
-  readonly reason: null;
-  readonly subcommand?: null;
+  public readonly Name: string = 'help';
+  public readonly Description: string = lang.description.help;
+  public readonly Usage: string = 'help <command>';
+  public readonly Example: string = 'help listcmds';
+  public readonly Type: string = lang.type[0];
+  public readonly Disabled: boolean = false;
+  public readonly Reason: null;
+  public readonly Subcommand?: ICommand[];
 
   public call(command: string): Object {
-    const CommandClass = Commander.getCommand(command);
+    const CommandClass = <ICommand>Commander.getCommand(command);
 
     let Response = {
-      title: format(lang.label.help, CommandClass.name),
-      description: CommandClass.description,
+      title: format(lang.label.help, CommandClass.Name),
+      description: CommandClass.Description,
       field: []
     };
 
     Response.field.push({
       name: lang.label.usage,
-      value: CommandClass.usage,
+      value: CommandClass.Usage,
       inline: false
     });
 
     Response.field.push({
       name: lang.label.example,
-      value: CommandClass.example,
+      value: CommandClass.Example,
       inline: false
     });
 
     Response.field.push({
       name: lang.label.type,
-      value: CommandClass.type,
+      value: CommandClass.Type,
       inline: true
     });
 
-    CommandClass.disabled == false
+    CommandClass.Disabled == false
       ? Response.field.push({
           name: lang.label.enabled,
           value: lang.symbol.enabled,
@@ -56,20 +56,21 @@ class Help implements ICommand {
           });
           Response.field.push({
             name: lang.label.reason,
-            value: CommandClass.reason
-              ? CommandClass.reason
+            value: CommandClass.Reason
+              ? CommandClass.Reason
               : lang.general.reason
           });
         };
 
-    if (CommandClass.subcommand)
+    if (CommandClass.Subcommand)
       Response.field.push({
         name: lang.label.subcommand,
-        value: <ICommand[]>CommandClass.subcommand
-          ? CommandClass.subcommand.join(', ')
-          : CommandClass.subcommand
+        value: CommandClass.Subcommand
+          ? CommandClass.Subcommand.join(', ')
+          : CommandClass.Subcommand
       });
 
+    Commander.emit('command.success', this);
     return Response;
   }
 }

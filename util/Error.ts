@@ -5,6 +5,6 @@ export class NotLoadedError implements Error {
   message: string;
   stack?: string;
   constructor(Command: ICommand) {
-    this.message = `Failed to load ${Command.name}.`;
+    this.message = `Failed to load ${Command.Name}.`;
   }
 }

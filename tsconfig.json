@@ -1,13 +1,9 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
     "lib": ["es2018"],
     "target": "es2018",
     "moduleResolution": "node",
-    "module": "none",
-    "paths": {
-      "Alloybot": ["../../Alloybot"]
-    }
+    "module": "none"
   },
   "files": ["Commander.ts", "util/Error.ts", "lib/Commands.ts", "lib/Help.ts"]
 }

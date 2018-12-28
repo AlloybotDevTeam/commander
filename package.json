@@ -2,11 +2,10 @@
   "name": "@alloybot/commander",
   "version": "0.0.0",
   "description": "Command module for Alloybot",
-  "main": "Commander.ts",
+  "main": "./bin/Setup.js",
   "scripts": {
-    "watch": "tsc -b --clean --watch tsconfig.json",
-    "build": "tsc -b --verbose tsconfig.json",
-    "clean": "tsc -b --clean tsconfig.json"
+    "prebuild": "tsc -b --clean tsconfig.json",
+    "build": "tsc -b --verbose tsconfig.json"
   },
   "repository": {
     "type": "git",

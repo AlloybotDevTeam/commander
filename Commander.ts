@@ -1,65 +1,70 @@
-import { default as Alloybot, Type, Util, ConfigBuilder } from '../../Alloybot';
-import { EventEmitter } from 'events';
+import { default as Alloybot, IFace, Util, ConfigBuilder } from '../../Alloybot';
 import { NotLoadedError } from './util/Error';
 
-export default class Commander extends EventEmitter implements Type.IPlugin {
-  public readonly name: string = 'Commander';
-  public readonly dependencies: string[] = [];
-  public readonly dependants: Type.IPlugin[] = Alloybot.getDependants(this.name);
-  public config;
+class Commander extends IFace.IPlugin {
+  protected Name: string = 'Commander';
+  protected Dependencies: string[] = [];
+  protected Dependants: IFace.IPlugin[] = Alloybot.getDependants(this.Name);
+  protected Logger: Util.Logger = new Util.Logger(this.Name);
+  protected Config;
 
-  private commands: Map<string, ICommand> = new Map();
-  private logger: Util.Logger = new Util.Logger(this.name);
+  protected static Commands: Map<string, ICommand> = new Map();
 
   constructor() {
     super();
-    let Config: ConfigBuilder = new ConfigBuilder('Commander', require('./package.json').version);
-    Config.close();
-    this.config = Config.getConfig();
+    let _config: ConfigBuilder = new ConfigBuilder('Commander', require('./package.json').version);
+    _config.close();
+    this.Config = _config.getConfig();
   }
 
   public isCommandRegistered(command: ICommand): boolean;
   public isCommandRegistered(command: string): boolean;
   public isCommandRegistered(command): boolean {
     if (typeof command == 'string') {
-      return this.commands.has(command);
+      return Commander.Commands.has(command);
     } else {
-      return this.commands.has(command.name);
+      return Commander.Commands.has(command.Name);
     }
   }
 
   public registerCommand(command: ICommand): void {
-    if (command.subcommand != null) this.registerCommand(command.subcommand);
+    if (command.Subcommand != null) {
+      command.Subcommand.forEach(subcommand => {
+        this.registerCommand(subcommand);
+      });
+    }
 
-    this.commands.set(command.name, command);
-    this.emit('command.registered', command.name);
+    Commander.Commands.set(command.Name, command);
+    this.emit('command.registered', command.Name);
   }
 
   public getCommand(name: string): ICommand | Error {
-    let CommandClass = this.commands.get(name);
+    let CommandClass = Commander.Commands.get(name);
     if (this.isCommandRegistered(CommandClass)) {
       this.emit('command.request', this.getCommand.caller.name);
       return CommandClass;
     } else {
-      this.emit('command.request.blocked', CommandClass.name);
+      this.emit('command.request.blocked', CommandClass.Name);
       return new NotLoadedError(CommandClass);
     }
   }
 
   public getAllCommands(): Map<string, ICommand> {
-    return this.commands;
+    return Commander.Commands;
   }
 }
 
-Alloybot.registerPlugin(new Commander());
+let INSTANCE = new Commander();
 
-export interface ICommand {
-  readonly name: string;
-  readonly description: string;
-  readonly usage: string;
-  readonly example: string;
-  readonly type: string;
-  readonly disabled: boolean;
-  readonly reason: string | null;
-  readonly subcommand?: ICommand | null;
+export default INSTANCE;
+
+export abstract class ICommand {
+  public readonly Name: string;
+  public readonly Description: string;
+  public readonly Usage: string;
+  public readonly Example: string;
+  public readonly Type: string;
+  public readonly Disabled: boolean;
+  public readonly Reason: string | null;
+  public readonly Subcommand?: ICommand[];
 }
